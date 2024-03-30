@@ -27,14 +27,6 @@ public class VendaService {
 		this.vendaRepository.save(venda);
 	}
 
-	private double calcularValorTotal(List<Produto> produtos) {
-		double valorTotal = 0;
-		for(Produto produto : produtos) {
-			valorTotal += produto.getValor();
-		}
-		return valorTotal;
-	}
-
 	public void update(long id, Venda venda) {
 		venda.setIdVenda(id);
 		venda.setValor(calcularValorTotal(venda.getProdutos()));
@@ -64,6 +56,14 @@ public class VendaService {
 		Produto produto = new Produto();
 		produto.setIdProduto(id);
 		return this.vendaRepository.findByProdutos(produto);
+	}
+
+	public double calcularValorTotal(List<Produto> produtos) {
+		double valorTotal = 0;
+		for(Produto produto : produtos) {
+			valorTotal += produto.getValor();
+		}
+		return valorTotal;
 	}
 	
 	public Venda verificarStatus(Venda venda) {
