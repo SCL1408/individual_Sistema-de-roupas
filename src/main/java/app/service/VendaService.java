@@ -19,16 +19,15 @@ public class VendaService {
 	}
 
 	public Venda findById(long id) {
-		// TODO Auto-generated method stub
 		return this.vendaRepository.findById(id).get();
 	}
 
 	public void save(Venda venda) {
-		venda.setValor(calculaValorTotal(venda.getProdutos()));
+		venda.setValor(calcularValorTotal(venda.getProdutos()));
 		this.vendaRepository.save(venda);
 	}
 
-	private double calculaValorTotal(List<Produto> produtos) {
+	private double calcularValorTotal(List<Produto> produtos) {
 		double valorTotal = 0;
 		for(Produto produto : produtos) {
 			valorTotal += produto.getValor();
@@ -38,6 +37,7 @@ public class VendaService {
 
 	public void update(long id, Venda venda) {
 		venda.setIdVenda(id);
+		venda.setValor(calcularValorTotal(venda.getProdutos()));
 		this.vendaRepository.save(venda);
 	}
 
