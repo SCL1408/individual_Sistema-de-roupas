@@ -24,12 +24,16 @@ public class VendaService {
 	}
 
 	public void save(Venda venda) {
+		venda.setValor(calculaValorTotal(venda.getProdutos()));
+		this.vendaRepository.save(venda);
+	}
+
+	private double calculaValorTotal(List<Produto> produtos) {
 		double valorTotal = 0;
-		for(Produto produto : venda.getProdutos()) {
+		for(Produto produto : produtos) {
 			valorTotal += produto.getValor();
 		}
-		venda.setValor(valorTotal);		
-		this.vendaRepository.save(venda);
+		return valorTotal;
 	}
 
 	public void update(long id, Venda venda) {
