@@ -67,7 +67,7 @@ public class VendaService {
 	}
 	
 	public Venda verificarStatus(Venda venda) {
-		if(venda.getStatus().toUpperCase()=="CANCELADO") {
+		if(venda.getStatus().equalsIgnoreCase("CANCELADO")) {
 			venda.setProdutos(null);
 			venda.setValor(0);
 		}
