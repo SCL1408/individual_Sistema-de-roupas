@@ -38,6 +38,7 @@ public class VendaService {
 	public void update(long id, Venda venda) {
 		venda.setIdVenda(id);
 		venda.setValor(calcularValorTotal(venda.getProdutos()));
+		venda = verificarStatus(venda);
 		this.vendaRepository.save(venda);
 	}
 
@@ -63,6 +64,14 @@ public class VendaService {
 		Produto produto = new Produto();
 		produto.setIdProduto(id);
 		return this.vendaRepository.findByProdutos(produto);
+	}
+	
+	public Venda verificarStatus(Venda venda) {
+		if(venda.getStatus().toUpperCase()=="CANCELADO") {
+			venda.setProdutos(null);
+			venda.setValor(0);
+		}
+		return venda;
 	}
 
 }
