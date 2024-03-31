@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -39,21 +40,29 @@ public class VendaControllerTest {
 			for(int j=0; j<3; j++) {
 				lista.get(i).getProdutos().add(new Produto((long) j+i, "produto "+(j+i), 10*j+i));
 			}
-			/*for(int j=0; j<2; j++) {
+			for(int j=0; j<2; j++) {
 				lista.get(i).getCliente().getVendas().add(lista.get(i));
 				lista.get(i).getFuncionario().getVendas().add(lista.get(i));				
-			}*/
+			}
 		}
 		
 		when(this.vendaRepository.findAll()).thenReturn(lista);
-		//when(this.vendaRepository.findById((long) 1)).thenReturn(lista.get(0));
+		when(this.vendaRepository.findById((long) 1)).thenReturn(Optional.of(lista.get(1)));
 	}
 	
 	@Test
-	@DisplayName("Teste de findAll() em Venda")
+	@DisplayName("Teste de findAll() OK em Venda")
 	void findAllOk() {
 		ResponseEntity<List<Venda>> response = this.vendaController.findAll();
 		List<Venda> lista = response.getBody();
 		assertEquals(3, lista.size());
+	}
+	
+	@Test
+	@DisplayName("Teste de findById() OK em Venda")
+	void findByIdOk() {
+		ResponseEntity<Venda> response = this.vendaController.findById(1);
+		Venda venda = response.getBody();
+		assertEquals(1, venda.getIdVenda());
 	}
 }
