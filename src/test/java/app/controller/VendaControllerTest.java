@@ -49,6 +49,8 @@ public class VendaControllerTest {
 		when(this.vendaRepository.findAll()).thenReturn(lista);
 		when(this.vendaRepository.findById((long) 1)).thenReturn(Optional.of(lista.get(1)));
 		when(this.vendaRepository.save(lista.get(1))).thenReturn(lista.get(1));
+		when(this.vendaRepository.findByClienteNome("cliente 1")).thenReturn(lista);//não faz o que devia, mas simula o que daria certo
+		when(this.vendaRepository.findByFuncionarioNome("funcionario 1")).thenReturn(lista);//não faz o que devia, mas simula o que daria certo
 	}
 	
 	@Test
@@ -91,5 +93,21 @@ public class VendaControllerTest {
 		ResponseEntity<String> response = this.vendaController.delete(1);
 		int httpStatus = response.getStatusCode().value();
 		assertEquals(200, httpStatus);
+	}
+	
+	@Test
+	@DisplayName("Teste de findByClienteNome() OK em Venda")
+	void findByClienteNomeOk() {
+		ResponseEntity<List<Venda>> response = this.vendaController.findByClienteNome("cliente 1");
+		int httpStatus = response.getStatusCode().value();
+		assertEquals(302, httpStatus);
+	}
+	
+	@Test
+	@DisplayName("Teste de findByFuncionarioNome() OK em Venda")
+	void findByFuncionarioNomeOk() {
+		ResponseEntity<List<Venda>> response = this.vendaController.findByFuncionarioNome("funcionario 1");
+		int httpStatus = response.getStatusCode().value();
+		assertEquals(302, httpStatus);
 	}
 }
