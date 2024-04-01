@@ -84,4 +84,12 @@ public class VendaControllerTest {
 		int httpStatus = response.getStatusCode().value();
 		assertEquals(200, httpStatus);
 	}
+	
+	@Test
+	@DisplayName("Teste de delete() OK em Venda")
+	void deleteOk() {
+		ResponseEntity<String> response = this.vendaController.delete(1);
+		int httpStatus = response.getStatusCode().value();
+		assertEquals(200, httpStatus);
+	}
 }
