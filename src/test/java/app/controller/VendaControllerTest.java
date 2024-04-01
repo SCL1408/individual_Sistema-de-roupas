@@ -75,4 +75,13 @@ public class VendaControllerTest {
 		int httpStatus = response.getStatusCode().value();
 		assertEquals(201, httpStatus);
 	}
+	
+	@Test
+	@DisplayName("Teste de update() OK em Venda")
+	void updateOk() {
+		Venda venda = new Venda(1000, "endereco 1000", 1000, "OK", new ArrayList<Produto>(), null, null);
+		ResponseEntity<String> response = this.vendaController.update(1, venda);
+		int httpStatus = response.getStatusCode().value();
+		assertEquals(200, httpStatus);
+	}
 }
