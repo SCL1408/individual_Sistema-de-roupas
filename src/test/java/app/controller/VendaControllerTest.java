@@ -48,6 +48,7 @@ public class VendaControllerTest {
 		
 		when(this.vendaRepository.findAll()).thenReturn(lista);
 		when(this.vendaRepository.findById((long) 1)).thenReturn(Optional.of(lista.get(1)));
+		when(this.vendaRepository.save(lista.get(1))).thenReturn(lista.get(1));
 	}
 	
 	@Test
@@ -64,5 +65,14 @@ public class VendaControllerTest {
 		ResponseEntity<Venda> response = this.vendaController.findById(1);
 		Venda venda = response.getBody();
 		assertEquals(1, venda.getIdVenda());
+	}
+	
+	@Test
+	@DisplayName("Teste de save() OK em Venda")
+	void saveOk() {
+		Venda venda = new Venda(0, "endereco", 0, "OK", new ArrayList<Produto>(), null, null);
+		ResponseEntity<String> response = this.vendaController.save(venda);
+		int httpStatus = response.getStatusCode().value();
+		assertEquals(201, httpStatus);
 	}
 }
