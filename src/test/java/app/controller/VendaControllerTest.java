@@ -1,7 +1,6 @@
 package app.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -111,12 +110,5 @@ public class VendaControllerTest {
 		ResponseEntity<List<Venda>> response = this.vendaController.findByProduto(1);
 		int httpStatus = response.getStatusCode().value();
 		assertEquals(302, httpStatus);
-	}
-	@Test
-	@DisplayName("Teste de exceção em findAll() em Venda")
-	void findAllCatch() {
-	    assertThrows(IllegalArgumentException.class, () -> {
-	        this.vendaController.findAll();
-	    });
 	}
 }

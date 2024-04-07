@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import app.entity.Funcionario;
-import app.entity.Produto;
 import app.repository.FuncionarioRepository;
 
 @Service
